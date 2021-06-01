@@ -1,7 +1,6 @@
 package com.collections;
 
-public class Contact
-{
+public class Contact {
     public String FIRST_NAME;
     public String LAST_NAME;
     public String ADDRESS;
@@ -11,8 +10,7 @@ public class Contact
     public long PHONE_NUMBER;
     public String EMAIL;
 
-    public Contact(String first_name, String last_name, String address, String city, String state, String email, int zip, long phone_number)
-    {
+    public Contact(String first_name, String last_name, String address, String city, String state, String email, int zip, long phone_number) {
         FIRST_NAME = first_name;
         LAST_NAME = last_name;
         ADDRESS = address;
@@ -26,8 +24,7 @@ public class Contact
     /*
      * setters used to modify individual detail of a contact
      */
-    public void setFIRST_NAME(String FIRST_NAME)
-    {
+    public void setFIRST_NAME(String FIRST_NAME) {
         this.FIRST_NAME = FIRST_NAME;
     }
 
@@ -84,8 +81,8 @@ public class Contact
 
     public int getZIP() {
         return ZIP;
-
     }
+
     public long getPHONE_NUMBER() {
         return PHONE_NUMBER;
     }
@@ -96,16 +93,6 @@ public class Contact
 
     @Override//to get details
     public String toString() {
-        return "Contact{" +"\n"+
-                "FIRST_NAME ='" + FIRST_NAME + '\'' +
-                ","+"\n" +"LAST_NAME ='" + LAST_NAME + '\'' +
-                ","+"\n"+"ADDRESS ='" + ADDRESS + '\'' +
-                ","+"\n"+"CITY ='" + CITY + '\'' +
-                ","+"\n"+"STATE ='" + STATE + '\'' +
-                ","+"\n"+"ZIP =" + ZIP +
-                ","+"\n"+"PHONE_NUMBER =" + PHONE_NUMBER +
-                ","+"\n"+"EMAIL ='" + EMAIL + '\'' +"\n"+
-                '}';
+        return "Contact{" + "\n" + "FIRST_NAME ='" + FIRST_NAME + '\'' + "," + "\n" + "LAST_NAME ='" + LAST_NAME + '\'' + "," + "\n" + "ADDRESS ='" + ADDRESS + '\'' + "," + "\n" + "CITY ='" + CITY + '\'' + "," + "\n" + "STATE ='" + STATE + '\'' + "," + "\n" + "ZIP =" + ZIP + "," + "\n" + "PHONE_NUMBER =" + PHONE_NUMBER + "," + "\n" + "EMAIL ='" + EMAIL + '\'' + "\n" + '}';
     }
-
 }

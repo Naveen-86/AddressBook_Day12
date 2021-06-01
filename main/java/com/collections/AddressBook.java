@@ -1,45 +1,26 @@
 package com.collections;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
-public class AddressBook
-{
+public class AddressBook {
     //variables
-    static String first_name, last_name, address, city, state, email;
-    static int zip;
-    static long phone_number;
-    List<Contact> details;
-    Scanner sc;
-
-    //method to add contact to a list
-    public void addToList(Contact contact)
-    {
-        details = new ArrayList<>();
-        details.add(contact);
-    }
-
-    //method to get contact details
-    public List<Contact> getContact()
-    {
-        return details;
-    }
+    String first_name, last_name, address, city, state, email;
+    int zip;
+    long phone_number;
+    Object object;
+    List<Contact> contact;
+    static AddressBook ab = new AddressBook();
+    static Scanner sc;
 
     //method to edit details
-    public void optionToUpdate(Object object)
-    {
+    public void optionToUpdate(Object object) {
         Contact anObject = (Contact) object;
         sc = new Scanner(System.in);
         System.out.println("Which detail do you want to change?");
-        System.out.println("1. first name" +"\n"+"2. last name"+"\n"+
-                "3. address"+"\n"+"4. city"+"\n"+"5. state"+"\n"+
-                "6. zip"+"\n"+"7. phone number"+"\n"+"8. email"+"\n"+
-                "9. exit");
-        int option =sc.nextInt();
+        System.out.println("1. first name" + "\n" + "2. last name" + "\n" + "3. address" + "\n" + "4. city" + "\n" + "5. state" + "\n" + "6. zip" + "\n" + "7. phone number" + "\n" + "8. email" + "\n" + "9. exit");
+        int option = sc.nextInt();
         sc = new Scanner(System.in);
-        switch(option)
-        {
+        switch(option) {
             case 1:
                 System.out.println("Enter the first name:");
                 anObject.setFIRST_NAME(sc.nextLine());
@@ -78,88 +59,92 @@ public class AddressBook
     }
 
     //method to delete contact
-    public void toDelete()
-    {
-        details.removeAll(details);
+    public void toDelete(Contact contact) {
+        ab.contact.remove(contact);
         System.out.println("Contact deleted successfully!");
+        System.out.println(ab.contact);
+    }
+
+    //method to take user input
+    public void takesInput() {
+        sc = new Scanner(System.in);
+
+        System.out.println("Enter first name");
+        first_name = sc.nextLine();
+        System.out.println("Enter last name");
+        last_name = sc.nextLine();
+        System.out.println("Enter address");
+        address = sc.nextLine();
+        System.out.println("Enter city");
+        city = sc.nextLine();
+        System.out.println("Enter state");
+        state = sc.nextLine();
+        System.out.println("Enter email");
+        email = sc.nextLine();
+        System.out.println("Enter zip");
+        zip = sc.nextInt();
+        System.out.println("Enter phone number");
+        phone_number = sc.nextLong();
+    }
+
+    //method to search contact by name
+    public static Contact streamSearch(String name) {
+        Contact nameSearched = ab.contact.stream().filter(namePresent -> namePresent.getFIRST_NAME().equals(name) || namePresent.getLAST_NAME().equals(name)).findFirst().orElse(null);
+        return nameSearched;
     }
 
     //main method
-    public static void main(String[] args)
-    {
-        AddressBook ab = new AddressBook();
+    public void AddressBookMaker() {
+        AddressBook addressBook = new AddressBook();
+        sc = new Scanner(System.in);
 
-        /*
-        Entering details to the Contact and adding it to address book
-         */
 
-        //Adding contact details manually
-//        Contact contact_1 = new Contact("Rahul","Mambrio",
-//                                    "Near police station","Hyderabad",
-//                                    "Kerala","rahul.mambrio@gmail.com",zip,phone_number);
-//        ab.addToList(contact_1);
 
-        System.out.println(ab.getContact());
+        sc = new Scanner(System.in);
 
-        //Adding details from console
-        ab.sc = new Scanner(System.in);
+        boolean isExit = false;
+        while(!isExit) {
+            System.out.println("Select option: " + "\n" + "1.Add new contact" + "\n" + "2.Edit contact" + "\n" + "3.Delete contact" + "\n" + "4.exit");
 
-        System.out.println("Enter first name");
-        first_name = ab.sc.nextLine();
-
-        System.out.println("Enter your last name");
-        last_name = ab.sc.nextLine();
-
-        System.out.println("Enter your address");
-        address = ab.sc.nextLine();
-
-        System.out.println("Enter your city");
-        city = ab.sc.nextLine();
-
-        System.out.println("Enter your state");
-        state = ab.sc.nextLine();
-
-        System.out.println("Enter your email");
-        email = ab.sc.nextLine();
-
-        System.out.println("Enter your zip");
-        zip = ab.sc.nextInt();
-
-        System.out.println("Enter your phone number");
-        phone_number = ab.sc.nextLong();
-
-        Contact contact_2 = new Contact(first_name,last_name,address,city,state,email,zip,phone_number);
-
-        ab.addToList(contact_2);
-
-        //getting contact from the address book
-        System.out.println(ab.getContact());
-
-        //to edit details
-        System.out.println("Do you want to:"+"\n"+"1.edit details?"+"\n"+"2.delete contact?"+"\n"+"3.exit");
-        ab.sc = new Scanner(System.in);
-        int option = ab.sc.nextInt();
-
-        if(option == 1)
-        {
-            System.out.println("Select contact to edit:"+"\n"+"1."+first_name+"\n"+"2.none");
-            int contactOption = ab.sc.nextInt();
-
-            if(contactOption == 1)
-            {
-                ab.optionToUpdate(contact_2);
+            int option = sc.nextInt();
+            switch(option) {
+                case 1:
+                    contact = new ArrayList<>();
+                    ab.takesInput();
+                    ab.object = new Contact(ab.first_name, ab.last_name, ab.address, ab.city, ab.state, ab.email, ab.zip, ab.phone_number);
+                    contact.add((Contact) ab.object);//book
+                    System.out.println("contact after adding: " + contact);
+                    break;
+                case 2:
+                    System.out.println("Enter the name to edit contact");
+                    Scanner sc = new Scanner(System.in);
+                    Contact name = streamSearch(sc.next());
+                    if(name == null) {
+                        System.out.println("No contact found!");
+                    } else {
+                        addressBook.optionToUpdate(name);
+                        System.out.println("After edited: " + contact);
+                    }
+                    break;
+                case 3:
+                    System.out.println("Enter the name to delete contact");
+                    Scanner sc1 = new Scanner(System.in);
+                    Contact name1 = streamSearch(sc1.next());
+                    if(name1 == null) {
+                        System.out.println("No contact found!");
+                    } else {
+                        addressBook.toDelete(name1);
+                        System.out.println("after deleted: " + contact);
+                    }
+                    break;
+                default:
+                    isExit = true;
             }
         }
-        else if(option == 2)
-        {
-            System.out.println("Select contact to delete:"+"\n"+"1."+first_name+"\n"+"2.none");
-            int contactOption = ab.sc.nextInt();
+    }
 
-            if(contactOption == 1)
-            {
-                ab.toDelete();
-            }
-        }
-        System.out.println(ab.getContact());
+    @Override
+    public String toString() {
+        return "AddressBook { " + "contact : " + contact + " " + '}';
     }
 }
